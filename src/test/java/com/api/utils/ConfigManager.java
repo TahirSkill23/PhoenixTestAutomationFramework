@@ -8,36 +8,37 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class ConfigManager {
-	
+
 	private ConfigManager() {
 		// private constructor
 	}
+
 	private static String path;
 	private static String env;
 	private static Properties prop = new Properties(); // Object creation of Properties Class
 
 	static {
-		env=System.getProperty("env","qa");
-		env=env.toLowerCase().trim();
-		System.out.println("Test is running is an ENV: "+ env);
-		
-		switch(env){
-		case "qa" -> path="config/config.qa.properties";
-			
-		case "dev"-> path="config/config.dev.properties";
-		
-		case "uat"-> path="config/config.uat.properties";
-		
-		default -> path="config/config.qa.properties";
-		
+		env = System.getProperty("env", "qa");
+		env = env.toLowerCase().trim();
+		System.out.println("Test is running in an ENV: " + env);
+
+		switch (env) {
+		case "qa" -> path = "config/config.qa.properties";
+
+		case "dev" -> path = "config/config.dev.properties";
+
+		case "uat" -> path = "config/config.uat.properties";
+
+		default -> path = "config/config.qa.properties";
+
 		}
+
+		InputStream input = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
 		
-	   InputStream input=Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
-	   if(input==null) {
-		   throw new RuntimeException("Cannot find the file at the specified Path: "+path);
-	   }
+		if (input == null) {
+			throw new RuntimeException("Cannot find the file at the specified Path: " + path);
+		}
 		try {
-			// Need to load the Properties file using load() method
 
 			prop.load(input);
 
@@ -50,8 +51,7 @@ public class ConfigManager {
 		}
 	}
 
-	public static String getProperty(String key) throws IOException {
-
+	public static String getProperty(String key)  {
 
 		return prop.getProperty(key);
 	}
