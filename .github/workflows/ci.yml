@@ -6,8 +6,10 @@ on:
   pull_request:
     branches: [ "master" ]
 
-  schedule: #Set the Corn job for 12:35 AM IST
+  schedule: #Set the Corn job for 12:35 AM & 12:50 AM IST
    - cron: "05 19 * * *"
+   - cron:  "20 19 * * *"
+
   workflow_dispatch:
      inputs:
        env:
