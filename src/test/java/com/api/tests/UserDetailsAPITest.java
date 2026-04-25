@@ -10,33 +10,21 @@ import org.testng.annotations.Test;
 import com.api.constant.Role;
 import com.api.utils.AuthTokenProvider;
 import com.api.utils.ConfigManager;
+import com.api.utils.SpecUtil;
 
 import io.restassured.http.ContentType;
 import io.restassured.http.Header;
 import io.restassured.module.jsv.JsonSchemaValidator;
 
 public class UserDetailsAPITest {
-	// @Tahir Asif
 	@Test
 	public void userdetailsAPItest() throws IOException {
-		Header authtHeader=new Header("Authorization",AuthTokenProvider.getToken(Role.SUP));
 		given().
-		        baseUri(ConfigManager.getProperty("BASE_URI"))
-		        .and()
-		        .contentType(ContentType.JSON)
-		        .header(authtHeader)
-		        .and()
-		        .accept(ContentType.JSON)
-		        .log().headers()
-		        .log().uri()
-		        .log().method()
-		        .log().body()
+		        spec(SpecUtil.requestSpecificationWithAuth(Role.FD))
 		        .when()
 		        .get("userdetails")
 		        .then()
-		        .log().all()
-		        .statusCode(200)
-		        .time(Matchers.lessThan(1500L))
+		        .spec(SpecUtil.responseSpe_OK())
 		        .and()
 		        .body("message",Matchers.equalTo("Success"))
 		        .body(JsonSchemaValidator.matchesJsonSchemaInClasspath("response-schema/userDetailsResponseSchema.json"));
