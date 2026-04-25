@@ -6,7 +6,9 @@ import org.testng.annotations.Test;
 import com.api.constant.Role;
 import com.api.utils.AuthTokenProvider;
 import com.api.utils.ConfigManager;
+import com.api.utils.SpecUtil;
 
+import io.restassured.http.ContentType;
 import io.restassured.module.jsv.JsonSchemaValidator;
 
 import static io.restassured.RestAssured.*;
@@ -18,20 +20,11 @@ public class MasterAPITest {
 	@Test
 	public void masterAPITest() throws IOException {
 		given()
-		.baseUri(ConfigManager.getProperty("BASE_URI"))
-		.and()
-		.headers("Authorization", AuthTokenProvider.getToken(Role.FD))
-		.and()
-		.contentType("")
-		.log().uri()
-		.log().method()
-		.log().headers()
+		.spec(SpecUtil.requestSpecificationWithAuth(Role.FD))
 		.when()
 		.post("master")
 		.then()
-		.log().all()
-		.statusCode(200)
-		.time(Matchers.lessThan(1200L))
+		.spec(SpecUtil.responseSpe_OK())
 		.body("message", Matchers.equalTo("Success"))
 		.body("data",Matchers.notNullValue())
 		.body("data", Matchers.hasKey("mst_oem"))
@@ -49,19 +42,11 @@ public class MasterAPITest {
 	@Test
 	public void invalidTokenMasterAPITest() throws IOException {
 		given()
-		.baseUri(ConfigManager.getProperty("BASE_URI"))
-		.and()
-		.headers("Authorization", "")
-		.and()
-		.contentType("")
-		.log().uri()
-		.log().method()
-		.log().headers()
+		.spec(SpecUtil.requestSpec())
 		.when()
 		.post("master")
 		.then()
-		.log().all()
-		.statusCode(401);
+		.spec(SpecUtil.responseSpe_Text(401));
 	}
 
 }
