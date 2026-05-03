@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hamcrest.Matchers;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.api.constant.Model;
@@ -29,8 +30,9 @@ import io.restassured.module.jsv.JsonSchemaValidator;
 
 public class CreateJobAPITest {
 	
-	@Test
-	public void createJobAPITest() throws IOException {
+	private CreateJobPayload createJobPayload;
+	@BeforeMethod(description="craeting payload forCreateJob API")
+	public void setUp() {
 		Customer customer=new Customer("Tahasf", "Mohd", "9897462699", "", "ttest123@putsbox.com", "");
 		Customer_address customerAddress=new Customer_address("207", "Aerialux", "UCO Bank Ln", "Restro", "Gachibowli", "500032", "India", "TG");
 		Customer_product customerProduct=new Customer_product(DateTimeUtil.getTimeDaysAgo(10), "44473143462197", "44473143462197", "44473143462197", DateTimeUtil.getTimeDaysAgo(10), 
@@ -39,9 +41,12 @@ public class CreateJobAPITest {
 		Problems [] problemsArray=new Problems[1];
 		List<Problems> problemList=new ArrayList<Problems>();
 		problemList.add(problems);
-		CreateJobPayload createJobPayload=new CreateJobPayload(ServiceLocation.SERVICE_LOCATION_A.getCode(), Platform.FRONT_DESK.getCode(), Warranty_Status.IN_WARRANTY.getCode(), OEM.GOOGLE.getCode(), customer, customerAddress, customerProduct, problemList);
-		
-		given()
+		 createJobPayload=new CreateJobPayload(ServiceLocation.SERVICE_LOCATION_A.getCode(), Platform.FRONT_DESK.getCode(), Warranty_Status.IN_WARRANTY.getCode(), OEM.GOOGLE.getCode(), customer, customerAddress, customerProduct, problemList);
+	}
+	
+	@Test(description = "Verify CreateJob API is able to create job for inwarranty flow", groups = {"api","regression","smoke"})
+	public void createJobAPITest() throws IOException {
+	given()
 		.spec(SpecUtil.requestSpecificationWithAuth(Role.FD, createJobPayload))
 		.when()
 		.post("job/create")

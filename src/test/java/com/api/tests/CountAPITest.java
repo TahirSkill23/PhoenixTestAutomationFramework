@@ -18,7 +18,7 @@ import io.restassured.module.jsv.JsonSchemaValidator;
 
 public class CountAPITest {
 
-	@Test
+	@Test(description = "Verify Count API response is correct", groups = {"api","regression","smoke"})
 	public void verifyCountAPI() throws IOException {
 
 		given()
@@ -37,7 +37,7 @@ public class CountAPITest {
 
 	}
 
-	@Test
+	@Test(description = "Verify Count API response Code is correct for invalid token", groups = {"api","negative","regression","smoke"})
 	public void countAPITest_MissingAuthToken() throws IOException {
 		given().spec(SpecUtil.requestSpec())
 		.when().get("dashboard/count")
