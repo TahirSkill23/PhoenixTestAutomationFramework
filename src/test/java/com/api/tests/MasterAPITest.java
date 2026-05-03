@@ -17,7 +17,7 @@ import java.io.IOException;
 
 public class MasterAPITest {
 	
-	@Test
+	@Test(description = "Verify Master API response is correct", groups = {"api","regression","smoke"})
 	public void masterAPITest() throws IOException {
 		given()
 		.spec(SpecUtil.requestSpecificationWithAuth(Role.FD))
@@ -39,7 +39,8 @@ public class MasterAPITest {
 		
 	}
 	
-	@Test
+	@Test(description = "Verify Master API response is correct for invalid toen", groups = {"api","negative","regression","smoke"})
+
 	public void invalidTokenMasterAPITest() throws IOException {
 		given()
 		.spec(SpecUtil.requestSpec())

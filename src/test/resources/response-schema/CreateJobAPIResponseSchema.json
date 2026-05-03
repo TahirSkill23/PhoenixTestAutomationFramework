@@ -1,0 +1,13 @@
+{
+  "message": "Job created successfully. ",
+  "data": {
+    "id": 269339,
+    "mst_service_location_id": 1,
+    "mst_platform_id": 2,
+    "mst_warrenty_status_id": 1,
+    "mst_oem_id": 1,
+    "tr_customer_id": 269358,
+    "tr_customer_product_id": 269348,
+    "job_number": "JOB_269339"
+  }
+}
