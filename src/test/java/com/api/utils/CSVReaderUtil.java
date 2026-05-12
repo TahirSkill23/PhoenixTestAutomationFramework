@@ -11,22 +11,20 @@ import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 public class CSVReaderUtil {
-	
+
 	private CSVReaderUtil() {
-		
+
 	}
-	
-	public static Iterator<UserBean> loadCsv(String pathOfCSVFile)  {
+
+	public static <T> Iterator<T> loadCsv(String pathOfCSVFile, Class<T> bean) {
 		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(pathOfCSVFile);
 		InputStreamReader isr = new InputStreamReader(is);
 		CSVReader csvReader = new CSVReader(isr);
-		
-		CsvToBean<UserBean> csvToBean = new CsvToBeanBuilder(csvReader)
-				.withType(UserBean.class)
-				.withIgnoreEmptyLine(true).build();
-		
-		List<UserBean> userList = csvToBean.parse();
-          return userList.iterator();	
+
+		CsvToBean<T> csvToBean = new CsvToBeanBuilder(csvReader).withType(bean).withIgnoreEmptyLine(true).build();
+
+		List<T> list = csvToBean.parse();
+		return list.iterator();
 
 	}
 

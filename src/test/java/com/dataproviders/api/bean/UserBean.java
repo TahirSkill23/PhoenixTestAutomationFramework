@@ -5,10 +5,9 @@ public class UserBean {
 	private String password;
 
 	public UserBean() {
-		
+
 	}
-	
-	
+
 	public String getUsername() {
 		return username;
 	}
