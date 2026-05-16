@@ -17,7 +17,7 @@ public class CreateJobAPIFakerDatadrivenTest {
 
 	@Test(description = "Verify multiple jobs created using fake data for inwarranty flow", groups = { "api",
 			"regression",
-			"datadriven" }, dataProviderClass = com.dataproviders.DataProviderUtils.class, dataProvider = "CreateJobAPiFakerDataProvider")
+			"faker" }, dataProviderClass = com.dataproviders.DataProviderUtils.class, dataProvider = "CreateJobAPiFakerDataProvider")
 	public void createJobAPITest(CreateJobPayload craeteJobPayload) throws IOException {
 		given().spec(SpecUtil.requestSpecificationWithAuth(Role.FD, craeteJobPayload)).when().post("job/create").then()
 				.spec(SpecUtil.responseSpe_OK())
