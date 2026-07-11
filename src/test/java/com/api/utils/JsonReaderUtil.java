@@ -14,14 +14,6 @@ public class JsonReaderUtil {
 
 		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName);
 		ObjectMapper objectMapper = new ObjectMapper();
-//		 UserCredentials usercredentials=objectMapper.readValue(is, UserCredentials.class);
-//		 System.out.println(usercredentials);
-//		 
-//		 System.out.println(usercredentials.username());
-//		 System.out.println(usercredentials.password());
-
-// This is correct for Single JSON Data but if we have multiple data in JSON Array then we need to handle it as below		 
-
 		T[] classArray;
 		List<T> list = null;
 		try {
