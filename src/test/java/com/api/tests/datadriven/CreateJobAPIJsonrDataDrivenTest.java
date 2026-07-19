@@ -13,7 +13,7 @@ import com.api.utils.SpecUtil;
 
 import io.restassured.module.jsv.JsonSchemaValidator;
 
-public class CreateJobAPIJsonrDatadrivenTest {
+public class CreateJobAPIJsonrDataDrivenTest {
 
 	@Test(description = "Verify multiple jobs created using json Payload provided as Data source for inwarranty flow", groups = { "api",
 			"regression",

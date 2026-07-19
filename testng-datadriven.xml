@@ -9,7 +9,7 @@
 			<class
 				name="com.api.tests.datadriven.CreateJobAPIFakerDatadrivenTest" />
 				<class name="com.api.tests.datadriven.LoginAPIJsonDataDrivenTest"></class>
-				<class name="com.api.tests.datadriven.CreateJobAPIJsonrDatadrivenTest"></class>
+				<class name="com.api.tests.datadriven.CreateJobAPIJsonrDataDrivenTest"></class>
                 
 		</classes>
 
